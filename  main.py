@@ -19,7 +19,7 @@ def random_multiplier():
     return random.uniform(1, 1.33)
 
 def get_user_input():
-    """Prompts the user for the coordinates of the two clicks and the number of iterations."""
+    """Prompts the user for the coordinates of the three clicks and the number of iterations."""
     root = tk.Tk()
     root.withdraw()
 
@@ -29,12 +29,14 @@ def get_user_input():
     y1 = simpledialog.askinteger("Input", f"Enter y-coordinate of the first button:\n{message}")
     x2 = simpledialog.askinteger("Input", f"Enter x-coordinate of the second button:\n{message}")
     y2 = simpledialog.askinteger("Input", f"Enter y-coordinate of the second button:\n{message}")
+    x3 = simpledialog.askinteger("Input", f"Enter x-coordinate of the third button:\n{message}")
+    y3 = simpledialog.askinteger("Input", f"Enter y-coordinate of the third button:\n{message}")
     iterations = simpledialog.askinteger("Input", "Enter the number of iterations:")
 
-    return (x1, y1), (x2, y2), iterations
+    return (x1, y1), (x2, y2), (x3, y3), iterations
 
 def main():
-    first_click_coords, second_click_coords, iterations = get_user_input()
+    first_click_coords, second_click_coords, third_click_coords, iterations = get_user_input()
 
     # Perform the loop n times, where n is the number of iterations provided by the user
     for _ in range(iterations):
@@ -42,7 +44,8 @@ def main():
         left_click()
         move_mouse(*second_click_coords)
         left_click()
+        move_mouse(*third_click_coords)
+        left_click()
 
 if __name__ == '__main__':
-    main()
-    
+    main()    
