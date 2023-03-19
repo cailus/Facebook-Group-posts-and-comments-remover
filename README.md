@@ -39,8 +39,7 @@ This Python script is designed to help you remove comments and posts from groups
 
 If the script doesn't work as expected, make sure you have the correct coordinates for the two buttons. You can use the `checkCoordinate.py` script to double-check the coordinates.
 
-If the script is clicking on public group's post - the only solutation (for now) is to manually delete them before running the script
-If you know a solution to the above, free feel to suggest a fix
+If the script is clicking on public group's post - the only solution (for now) is to manually delete them before running the script. If you know a solution to the above, feel free to suggest a fix.
 
 ## Notes
 
