@@ -30,7 +30,7 @@ def get_user_input():
         coords.append((x, y))
 
     # Calculate the second coordinate based on the first
-    coords.insert(1, (coords[0][0] - 100, coords[0][1] + 6))
+    coords.insert(1, (coords[0][0] - 100, coords[0][1]))
 
     iterations = int(input("Enter the number of iterations:\n"))
 
@@ -53,14 +53,14 @@ def main():
             move_mouse(*click_coords[0])
             current_color_1 = get_mouse_color()
             counter = 0
-            while not is_color_close(current_color_1, TARGET_COLOR_1, TOLERANCE):
+            while not is_color_close(current_color_1, TARGET_COLOR_1, 0):
                 if counter >= MAX_ITERATIONS:
                     print("Reached maximum scroll iterations, exiting.")
                     exit()
                 scroll_mouse(-1)
                 time.sleep(0.17)
                 current_color_1 = get_mouse_color()
-                if is_color_close(current_color_1, (104, 104, 106, 255), TOLERANCE):
+                if is_color_close(current_color_1, (104, 104, 106, 255), 5) or is_color_close(current_color_1, (227, 228, 232, 255), 50):
                     break
                 print(current_color_1)
                 counter += 1
@@ -73,7 +73,7 @@ def main():
             # Third button
             move_mouse(*click_coords[2])
             current_color_3 = get_mouse_color()
-            if is_color_close(current_color_3, TARGET_COLOR_3, TOLERANCE):
+            if is_color_close(current_color_3, TARGET_COLOR_3, TOLERANCE) or is_color_close(current_color_3, (163, 193, 241, 255), 10):
                 left_click()
 
     except Exception as e:
