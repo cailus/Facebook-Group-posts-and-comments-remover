@@ -46,3 +46,8 @@ If the script is clicking on public group's post - the only solution (for now) i
 This script is not affiliated with or endorsed by Facebook. Use it at your own risk. The code is provided "as is" with no guarantees or warranties. Always double-check the button coordinates before running the script, as changes to Facebook's layout or code may affect its functionality.
 
 I tried to create this functionality using JavaScript, but it wasn't working for some reason. I may create a JavaScript function and a Chrome extension for this purpose in the future.
+
+## TODO
+
+add more options and customization
+add optional color check
