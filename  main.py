@@ -3,49 +3,66 @@ import random
 import time
 import tkinter as tk
 from tkinter import simpledialog
+from PIL import ImageGrab
+
+TARGET_COLOR_2 = (56, 56, 57, 255)
+TARGET_COLOR_3 = (55, 120, 224, 255)
+TOLERANCE = 10
 
 def move_mouse(x, y, delay=100):
-    """Moves the mouse to the specified coordinates with a delay."""
-    pyautogui.moveTo(x, y)
-    time.sleep(delay / 1000 * random_multiplier())
+    pyautogui.moveTo(x, y, duration=delay / 1000 * random_multiplier())
 
 def left_click(delay=200):
-    """Performs a left click with a delay."""
     pyautogui.click()
     time.sleep(delay / 1000 * random_multiplier())
 
 def random_multiplier():
-    """Generates a random multiplier between 1 and 1.33."""
     return random.uniform(1, 1.33)
 
 def get_user_input():
-    """Prompts the user for the coordinates of the three clicks and the number of iterations."""
     root = tk.Tk()
     root.withdraw()
 
     message = "Run the checkCoordinate.py to see coordinates."
 
-    x1 = simpledialog.askinteger("Input", f"Enter x-coordinate of the first button:\n{message}")
-    y1 = simpledialog.askinteger("Input", f"Enter y-coordinate of the first button:\n{message}")
-    x2 = simpledialog.askinteger("Input", f"Enter x-coordinate of the second button:\n{message}")
-    y2 = simpledialog.askinteger("Input", f"Enter y-coordinate of the second button:\n{message}")
-    x3 = simpledialog.askinteger("Input", f"Enter x-coordinate of the third button:\n{message}")
-    y3 = simpledialog.askinteger("Input", f"Enter y-coordinate of the third button:\n{message}")
+    coords = []
+    for i in range(3):
+        x = simpledialog.askinteger("Input", f"Enter x-coordinate of button {i + 1}:\n{message}")
+        y = simpledialog.askinteger("Input", f"Enter y-coordinate of button {i + 1}:\n{message}")
+        coords.append((x, y))
+
     iterations = simpledialog.askinteger("Input", "Enter the number of iterations:")
 
-    return (x1, y1), (x2, y2), (x3, y3), iterations
+    return coords, iterations
+
+def is_color_close(color1, color2, tolerance):
+    return all(abs(c1 - c2) <= tolerance for c1, c2 in zip(color1, color2))
+
+def get_mouse_color():
+    x, y = pyautogui.position()
+    screen = ImageGrab.grab()
+    return screen.getpixel((x, y))
 
 def main():
-    first_click_coords, second_click_coords, third_click_coords, iterations = get_user_input()
+    click_coords, iterations = get_user_input()
 
-    # Perform the loop n times, where n is the number of iterations provided by the user
     for _ in range(iterations):
-        move_mouse(*first_click_coords)
+        # First button
+        move_mouse(*click_coords[0])
         left_click()
-        move_mouse(*second_click_coords)
-        left_click()
-        move_mouse(*third_click_coords)
-        left_click()
+
+        # Second button
+        move_mouse(*click_coords[1])
+        current_color_2 = get_mouse_color()
+        if is_color_close(current_color_2, TARGET_COLOR_2, TOLERANCE):
+            left_click()
+
+        # Third button
+        move_mouse(*click_coords[2])
+        current_color_3 = get_mouse_color()
+        if is_color_close(current_color_3, TARGET_COLOR_3, TOLERANCE):
+            left_click()
 
 if __name__ == '__main__':
-    main()    
+    main()
+    
