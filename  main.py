@@ -13,7 +13,7 @@ def move_mouse(x, y, delay=1):
     pyautogui.moveTo(x, y)
 
 
-def left_click(delay=50):
+def left_click(delay=40):
     pyautogui.click()
     time.sleep(delay / 1000 * random_multiplier())
 
