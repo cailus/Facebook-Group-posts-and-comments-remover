@@ -9,11 +9,11 @@ TOLERANCE = 5
 MAX_ITERATIONS = 20
 
 
-def move_mouse(x, y, delay=100):
-    pyautogui.moveTo(x, y, duration=delay / 1000 * random_multiplier())
+def move_mouse(x, y, delay=1):
+    pyautogui.moveTo(x, y)
 
 
-def left_click(delay=140):
+def left_click(delay=50):
     pyautogui.click()
     time.sleep(delay / 1000 * random_multiplier())
 
@@ -60,7 +60,7 @@ def main():
             move_mouse(*click_coords[0])
             current_color_1 = get_mouse_color()
             counter = 0
-            while not is_color_close(current_color_1, TARGET_COLOR_1, TOLERANCE):
+            while not is_color_close(current_color_1, TARGET_COLOR_1, 0):
                 if counter >= MAX_ITERATIONS:
                     print("Reached maximum scroll iterations, exiting.")
                     exit()
