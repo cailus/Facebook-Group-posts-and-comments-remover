@@ -1,5 +1,7 @@
 # Facebook Group Post Remover
 
+# OUTDATED
+
 This Python script is designed to help you remove comments and posts from groups in your Facebook activity log in an automated fashion. The script checks the color of buttons before clicking, ensuring that it clicks only when the expected color is present.
 
 ## Prerequisites
